@@ -1,0 +1,98 @@
+<html>
+    <head>
+         <meta charset="utf-8">
+         <style>
+             #detail{
+                 display: inline-block;
+                 width:200px
+             }
+             img{
+                 width:200px;
+             }
+         </style>
+    </head>
+    <body>
+        <div id="product"></div>
+        已購買商品：<p id="alreadyBuy"></p>
+        <button onclick="pay()">結帳</button>
+        <div id="resultCheck"></div>
+        <script>
+            let product = [
+            {
+                name:'手持風扇',
+                type:'生活用品',
+                price:53,
+                imgurl:'http://i.011st.com/ex_t/R/400x400/1/85/0/src/dl/18/3/8/5/7/0/0/qhxuw/2084385700_125546815.jpg',
+            },
+            {
+                name:'手燈',
+                type:'週邊',
+                price:100,
+                imgurl:'http://i.011st.com/ex_t/R/400x400/1/85/0/src/pd/18/9/5/9/3/2/2/imXrX/2101959322_B.jpg'
+            },
+            {
+                name:'鑰使圈',
+                type:'生活用品',
+                price:150,
+                imgurl:'https://gd.image-gmkt.com/SHINEE-DEBUT-10TH-ANNIVERSARY-SHINEE-DAY-OFFICIAL-GOODS-KEYRING/li/389/491/1132491389.g_400-w_g.jpg'
+            },
+            {
+                name:'手鍊',
+                type:'潮流',
+                price:220,
+                imgurl:'https://d1w8cc2yygc27j.cloudfront.net/2240074759899218641/-4944389290845941534.jpg'
+            },
+            {
+                name:'衣服',
+                type:'生活用品',
+                price:50,
+                imgurl:'https://gd.image-gmkt.com/li/923/491/1132491923.g_400-w-st_g.jpg'
+            },
+            {
+                name:'環保袋',
+                type:'實用',
+                price:99,
+                imgurl:'https://gd.image-gmkt.com/SHINEE-DEBUT-10TH-ANNIVERSARY-SHINEE-DAY-OFFICIAL-GOODS-ECO-BAG/li/395/492/1132492395.g_400-w_g.jpg'
+            }
+            ]
+            
+            let htmlFile = ""
+            product.forEach((prod,index)=>{
+                htmlFile = htmlFile + "<div id=\"detail\"><img src="+ prod.imgurl +"><h3>" + prod.name + "</h3><p>"+ prod.type + 
+                            "</p><button onclick=\"buy("+ index +")\">放入購物車</button></div>"
+            })
+            document.getElementById("product").innerHTML = htmlFile
+
+            let buyProd = []
+            
+            function buy(productIndex){
+                // console.log(product[productIndex])
+                buyProd.push(product[productIndex])
+
+                let alreadyBuyWord = ""
+                buyProd.forEach((prod)=>{
+                    alreadyBuyWord = alreadyBuyWord + prod.name + "/"
+                })
+                document.getElementById("alreadyBuy").innerHTML = alreadyBuyWord
+            }
+
+            function pay(){
+                let payMoney = 0
+                buyProd.forEach((prodObject)=>{
+                    payMoney = payMoney + prodObject.price
+                })
+
+                document.getElementById("resultCheck").innerHTML =
+                "<p>總價："+payMoney+"</p><button onclick=\"overpay()\">確定結帳</button>"
+            }
+
+            function overpay(){
+                alert("購買成功")
+                buyProd = []
+                document.getElementById("alreadyBuy").innerHTML = ""
+                document.getElementById("resultCheck").innerHTML = ""
+
+            }
+        </script>
+    </body>
+</html>
